@@ -8,16 +8,9 @@ export default function Home() {
   return (
     <main>
       <header className="cursor-default p-4">
-        <a className="text-sm" href="https://moonphase-nu.vercel.app">
-          {'moonphase-nu.vercel.app'.split('').map((letter, index) => (
-            <span
-              className="delay-200 duration-1000 hover:delay-0 hover:duration-0 hover:opacity-100 opacity-30 relative transition-opacity z-10"
-              key={index}
-            >
-              {letter}
-            </span>
-          ))}
-        </a>
+        <h1 className="bg-clip-text bg-gradient-to-r from-yellow-50/15 text-transparent text-xs to-yellow-50/15">
+          moonphase
+        </h1>
       </header>
       <div className="bottom-0 fixed flex flex-col items-center justify-center left-0 right-0 top-0">
         <div className="flex gap-[3vmin] items-center justify-center w-full">

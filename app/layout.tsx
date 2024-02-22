@@ -15,7 +15,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html className="bg-neutral-950 fixed text-yellow-50" lang="en">
+    <html
+      className="bg-neutral-950 text-yellow-50"
+      lang="en"
+      style={{ scrollbarWidth: 'none' }}
+    >
       <body className={inter.className}>{children}</body>
     </html>
   )

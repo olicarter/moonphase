@@ -1,19 +1,34 @@
+'use client'
+
 import { clsx } from 'clsx'
 import { Moon } from 'lunarphase-js'
+import { useRef } from 'react'
+import { useScroll } from 'react-use'
 
-const numMoons = 10
-const maxDifference = numMoons / 2
+const numMoons = 29
+const maxDifference = Math.ceil(numMoons / 2)
 
 export default function Home() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const { y } = useScroll(scrollRef)
+
   return (
-    <main>
-      <header className="cursor-default p-4">
+    <main
+      className="h-svh overflow-y-scroll"
+      ref={scrollRef}
+      style={{ scrollbarWidth: 'none' }}
+    >
+      <div className="h-[3000px] w-svh" />
+      <header className="cursor-default fixed p-4 top-0 left-0">
         <h1 className="bg-clip-text bg-gradient-to-r from-yellow-50/15 text-transparent text-xs to-yellow-50/15">
           moonphase
         </h1>
       </header>
-      <div className="bottom-0 fixed flex flex-col items-center justify-center left-0 right-0 top-0">
-        <div className="flex gap-[3vmin] items-center justify-center w-full">
+      <div className="bottom-0 fixed flex flex-col items-center justify-around left-0 py-[3vmin] right-0 top-0 pointer-events-none">
+        <div
+          className="grid grid-cols-[repeat(29,1fr)] gap-[1vmin]"
+          style={{ width: `${3000 - (y + 600)}vmin` }}
+        >
           {new Array(numMoons).fill(null).map((_, i) => {
             const date = new Date()
             const difference = i - maxDifference
@@ -22,9 +37,12 @@ export default function Home() {
             return (
               <div
                 key={i}
-                className="aspect-square shrink-0 -translate-x-1/2 w-[66vmin]"
+                className="aspect-square shrink-0 -translate-x-[calc(100%+1vmin)] w-full"
                 style={{
-                  opacity: 1 - Math.abs(difference) / maxDifference,
+                  opacity:
+                    difference === 0
+                      ? 1
+                      : 0.5 - (Math.abs(difference) / maxDifference) * 0.5,
                 }}
               >
                 <MoonGraphic date={date} />

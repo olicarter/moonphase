@@ -22,7 +22,7 @@ export default function Home() {
             return (
               <div
                 key={i}
-                className="aspect-square shrink-0 -translate-x-1/2 w-[33vmin]"
+                className="aspect-square shrink-0 -translate-x-1/2 w-[66vmin]"
                 style={{
                   opacity: 1 - Math.abs(difference) / maxDifference,
                 }}
@@ -43,6 +43,7 @@ function MoonGraphic({ date = new Date() }: { date?: Date }) {
 
   return (
     <div className="h-full relative rounded-full w-full">
+      <div className="absolute h-full w-0.5 bg-yellow-50 left-1/2 z-10 -translate-x-1/2" />
       <div
         className={clsx(
           'absolute bg-gradient-to-r from-50% h-full overflow-hidden rounded-full to-50% w-full z-10',

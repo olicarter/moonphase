@@ -2,32 +2,46 @@
 
 import { clsx } from 'clsx'
 import { Moon } from 'lunarphase-js'
-import { useRef } from 'react'
-import { useScroll } from 'react-use'
+import { useState } from 'react'
 
 const numMoons = 29
 const maxDifference = Math.ceil(numMoons / 2)
 
 export default function Home() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const { y } = useScroll(scrollRef)
+  const [isLarge, setIsLarge] = useState(true)
+  const width = isLarge
+    ? `calc(${100 * numMoons}vmin - ${32 * numMoons}px)`
+    : '100vw'
 
   return (
-    <main
-      className="h-svh overflow-y-scroll"
-      ref={scrollRef}
-      style={{ scrollbarWidth: 'none' }}
-    >
-      <div className="h-[3000px] w-svh" />
-      <header className="cursor-default fixed p-4 top-0 left-0">
-        <h1 className="bg-clip-text bg-gradient-to-r from-yellow-50/15 text-transparent text-xs to-yellow-50/15">
-          moonphase
+    <main className="h-svh" onClick={() => setIsLarge(p => !p)}>
+      <header className="cursor-default fixed p-4 top-0 left-0 text-yellow-50/20 text-xs">
+        <h1>
+          <a
+            className="hover:text-yellow-50"
+            href="https://github.com/olicarter/moonphase"
+            rel="noreferrer"
+            target="_blank"
+          >
+            moonphase
+          </a>{' '}
+          <span>
+            by{' '}
+            <a
+              className="hover:text-yellow-50"
+              href="https://github.com/olicarter"
+              rel="noreferrer"
+              target="_blank"
+            >
+              olicarter
+            </a>
+          </span>
         </h1>
       </header>
       <div className="bottom-0 fixed flex flex-col items-center justify-around left-0 py-[3vmin] right-0 top-0 pointer-events-none">
         <div
-          className="grid grid-cols-[repeat(29,1fr)] gap-[1vmin]"
-          style={{ width: `${3000 - (y + 600)}vmin` }}
+          className="duration-1000 grid grid-cols-[repeat(29,1fr)] gap-[1vmin] transition-[width]"
+          style={{ width }}
         >
           {new Array(numMoons).fill(null).map((_, i) => {
             const date = new Date()

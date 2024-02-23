@@ -9,11 +9,13 @@ export default function Home() {
   const [date, setDate] = useState(new Date())
 
   useEffect(() => {
-    const changeDate = (e: WheelEvent) => {
-      setDate(d => addMinutes(d, e.deltaX + e.deltaY))
+    const onWheel = (e: WheelEvent) => {
+      setDate(d => addMinutes(d, (e.deltaX + e.deltaY) * 5))
     }
-    window.addEventListener('wheel', changeDate)
-    return () => window.removeEventListener('wheel', changeDate)
+    window.addEventListener('wheel', onWheel)
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+    }
   }, [])
 
   return (
@@ -34,7 +36,7 @@ export default function Home() {
         <div className="absolute font-bold font-mono mix-blend-difference text-xs text-white z-50">
           {format(date, 'dd.MM.yy HH:mm')}
         </div>
-        <div className="aspect-square duration-1000 shrink-0 w-[calc(100vmin-32px)] transition-[width]">
+        <div className="aspect-square duration-1000 shrink-0 w-[calc(100vmin-96px)] transition-[width]">
           <MoonGraphic date={date} />
         </div>
       </div>
@@ -70,4 +72,27 @@ function MoonGraphic({ date }: { date: Date }) {
       />
     </div>
   )
+}
+
+const throttle = (fn: Function, wait: number = 300) => {
+  let inThrottle: boolean,
+    lastFn: ReturnType<typeof setTimeout>,
+    lastTime: number
+  return function (this: any) {
+    const context = this,
+      args = arguments
+    if (!inThrottle) {
+      fn.apply(context, args)
+      lastTime = Date.now()
+      inThrottle = true
+    } else {
+      clearTimeout(lastFn)
+      lastFn = setTimeout(() => {
+        if (Date.now() - lastTime >= wait) {
+          fn.apply(context, args)
+          lastTime = Date.now()
+        }
+      }, Math.max(wait - (Date.now() - lastTime), 0))
+    }
+  }
 }

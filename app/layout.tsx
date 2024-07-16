@@ -1,13 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-import clsx from 'clsx'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'moonphase',
-  description: 'The current moon phase',
+  title: 'moonphased',
+  description: "For checking the moon's phase in the dark of night",
 }
 
 export default function RootLayout({
@@ -16,14 +12,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      className="bg-neutral-950 overscroll-none text-yellow-50"
-      lang="en"
-      style={{ scrollbarWidth: 'none' }}
-    >
-      <body className={clsx('overscroll-none', inter.className)}>
-        {children}
-      </body>
+    <html className="bg-neutral-950 overscroll-none" lang="en">
+      <body>{children}</body>
     </html>
   )
 }

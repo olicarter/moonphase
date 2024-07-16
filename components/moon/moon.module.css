@@ -1,0 +1,32 @@
+.moon {
+  border-radius: 50%;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.moon > :nth-child(1) {
+  @apply bg-yellow-50;
+  height: 100%;
+  width: 0.125rem;
+  position: absolute;
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+}
+
+.moon > :nth-child(2) {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.moon > :nth-child(3) {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
